@@ -20,6 +20,7 @@ cd Azure-Synapse-Analytics-PoC
 bash setup.sh 
 bash configure.sh 
 ./upload_sql_scripts.ps1
+
 ```
 
 - There are a few variables in <b>terraform.tfvars</b> which could be optionally updated to reflect your environment (e.g. <b>synapse_azure_ad_admin_upn</b>) before you run the <b>setup.sh</b> script.
