@@ -1,6 +1,6 @@
 # Azure-Synapse-Analytics-PoC
 
-![alt tag](https://raw.githubusercontent.com/shaneochotny/Azure-Synapse-Analytics-PoC\/main/Images/Synapse-Analytics-PoC-Architecture.gif)
+![alt tag](./Images/Synapse-Analytics-PoC-Architecture.gif)
 
 # Description
 
