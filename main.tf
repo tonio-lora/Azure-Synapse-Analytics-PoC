@@ -98,6 +98,11 @@ output "private_endpoints_enabled" {
   value = var.enable_private_endpoints
 }
 
+output "enable_purview_account" {
+  value = var.enable_purview_account
+}
+
+
 /************************************************************************************************************************************************
 
   Dependancy Lookups
@@ -580,6 +585,7 @@ resource "azurerm_log_analytics_workspace" "loganalytics" {
 //   Azure: https://docs.microsoft.com/en-us/azure/purview/
 //   Terraform: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/purview_account
 resource "azurerm_purview_account" "purviewaccount" {
+  count               = var.enable_purview_account == true ? 1 : 0
   name                = "poc-synapse-analytics-purview-${random_string.suffix.id}"
   resource_group_name = var.resource_group_name
   location            = var.azure_region
