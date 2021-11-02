@@ -101,6 +101,10 @@ output "private_endpoints_enabled" {
 output "enable_purview_account" {
   value = var.enable_purview_account
 }
+            
+output "synapse_connectivity_endpoints" {
+  value = azurerm_synapse_workspace.synapsews.connectivity_endpoints
+}
 
 
 /************************************************************************************************************************************************
