@@ -41,3 +41,7 @@ variable "private_endpoint_virtual_network" {
 variable "private_endpoint_virtual_network_subnet" {
   description = "Name of the Subnet within the Virtual Network where you want to create the Private Endpoints."
 }
+
+variable "enable_purview_account" {
+  description = "If true, create Azure Purview Account and configures it to scan ADLS and Synapse Analytics"
+}
