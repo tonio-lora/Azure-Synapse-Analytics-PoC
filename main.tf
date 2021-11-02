@@ -567,3 +567,22 @@ resource "azurerm_log_analytics_workspace" "loganalytics" {
 
   depends_on = [ azurerm_resource_group.resource_group ]
 }
+
+/************************************************************************************************************************************************
+
+   Azure Purview Account
+
+        Create the Azure Purview Account to catalg data from Azure Synapse Analytics and Azure Data Lake Storage Gen2.
+  
+************************************************************************************************************************************************/
+
+// Create a Azure Purview Account
+//   Azure: https://docs.microsoft.com/en-us/azure/purview/
+//   Terraform: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/purview_account
+resource "azurerm_purview_account" "purviewaccount" {
+  name                = "poc-synapse-analytics-purview-${random_string.suffix.id}"
+  resource_group_name = var.resource_group_name
+  location            = var.azure_region
+  sku_name            = "Standard_1"
+  depends_on = [ azurerm_resource_group.resource_group ]
+}
