@@ -586,3 +586,25 @@ resource "azurerm_purview_account" "purviewaccount" {
   sku_name            = "Standard_4"
   depends_on = [ azurerm_resource_group.resource_group ]
 }
+
+// Azure Data Lake Storage Gen2 Permissions: Give the Purview Account Managed Identity permissions to Azure Data Lake Storage Gen2
+//   Azure: https://docs.microsoft.com/en-us/azure/purview/tutorial-msi-configuration#azure-data-lake-storage-gen2-adlsgen2
+//   Terraform: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment
+resource "azurerm_role_assignment" "adls-purview-managed-identity" {
+  scope                = azurerm_storage_account.datalake.id
+  role_definition_name = "Storage Blob Data Reader"
+  principal_id         = azurerm_purview_account.purviewaccount.identity[0].principal_id
+
+  depends_on = [ azurerm_storage_account.datalake, azurerm_purview_account.purviewaccount ]
+}
+
+// Synapse Dedicated SQL Pool Permissions: Give the Purview Account Managed Identity permissions to scan the Dedicated SQL Pool
+//   Azure: https://docs.microsoft.com/en-us/azure/purview/tutorial-msi-configuration#azure-synapse-synapse-dedicated-pool
+//   Terraform: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment
+resource "azurerm_role_assignment" "dedicated-sql-pool-purview-managed-identity" {
+  scope                = azurerm_synapse_sql_pool.synapsesqlpool.id
+  role_definition_name = "db_datareader"
+  principal_id         = azurerm_purview_account.purviewaccount.identity[0].principal_id
+
+  depends_on = [ azurerm_synapse_sql_pool.synapsesqlpool, azurerm_purview_account.purviewaccount ]
+}
