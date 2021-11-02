@@ -599,9 +599,9 @@ resource "azurerm_purview_account" "purviewaccount" {
 resource "azurerm_role_assignment" "adls-purview-managed-identity" {
   scope                = azurerm_storage_account.datalake.id
   role_definition_name = "Storage Blob Data Reader"
-  principal_id         = azurerm_purview_account.purviewaccount.identity[0].principal_id
+  principal_id         = azurerm_purview_account.purviewaccount[0].identity[0].principal_id
 
-  depends_on = [ azurerm_storage_account.datalake, azurerm_purview_account.purviewaccount ]
+  depends_on = [ azurerm_storage_account.datalake, azurerm_purview_account.purviewaccount[0] ]
 }
 
 // Synapse Dedicated SQL Pool Permissions: Give the Purview Account Managed Identity permissions to scan the Dedicated SQL Pool
@@ -610,7 +610,7 @@ resource "azurerm_role_assignment" "adls-purview-managed-identity" {
 resource "azurerm_role_assignment" "dedicated-sql-pool-purview-managed-identity" {
   scope                = azurerm_synapse_sql_pool.synapsesqlpool.id
   role_definition_name = "db_datareader"
-  principal_id         = azurerm_purview_account.purviewaccount.identity[0].principal_id
+  principal_id         = azurerm_purview_account.purviewaccount[0].identity[0].principal_id
 
-  depends_on = [ azurerm_synapse_sql_pool.synapsesqlpool, azurerm_purview_account.purviewaccount ]
+  depends_on = [ azurerm_synapse_sql_pool.synapsesqlpool, azurerm_purview_account.purviewaccount[0] ]
 }
