@@ -583,6 +583,6 @@ resource "azurerm_purview_account" "purviewaccount" {
   name                = "poc-synapse-analytics-purview-${random_string.suffix.id}"
   resource_group_name = var.resource_group_name
   location            = var.azure_region
-  sku_name            = "Standard_1"
+  sku_name            = "Standard_4"
   depends_on = [ azurerm_resource_group.resource_group ]
 }
