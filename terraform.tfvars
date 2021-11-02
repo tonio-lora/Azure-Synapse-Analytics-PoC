@@ -16,3 +16,4 @@ synapse_azure_ad_admin_upn               = "REPLACE_AD_ADMIN_UPN"         // Use
 enable_private_endpoints                 = false                          // If true, create Private Endpoints for Synapse Analytics. This assumes you have other Private Endpoint requirements configured and in place such as virtual networks, VPN/Express Route, and private DNS forwarding.
 private_endpoint_virtual_network         = ""                             // Name of the Virtual Network where you want to create the Private Endpoints. (i.e. vnet-data-platform)
 private_endpoint_virtual_network_subnet  = ""                             // Name of the Subnet within the Virtual Network where you want to create the Private Endpoints. (i.e. private-endpoint-subnet)
+enable_purview_account                   = false                          // If true, create Purview Account and configure it to scan ADLS and Synapse Analytics. 
