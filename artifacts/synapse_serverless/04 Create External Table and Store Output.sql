@@ -38,7 +38,7 @@ GO
 -- Sub-Folder to Store Output : output_dataset
 -- Output : MyDataSource 
 CREATE EXTERNAL DATA SOURCE [MyDataSource] WITH (
-    LOCATION = 'https://oneclickpocadls.dfs.core.windows.net/synapse/AdventureWorksDW2019/serverlessusecase/output_dataset/SalesLT_Customer'
+    LOCATION = 'https://REPLACE_DATALAKE_NAME.dfs.core.windows.net/synapse/AdventureWorksDW2019/serverlessusecase/output_dataset/SalesLT_Customer'
 );
 GO
 
@@ -76,7 +76,7 @@ CREATE EXTERNAL TABLE [dbo].[serverlesscustomerCETAS] WITH (
 select 
     *
 from openrowset(
-       bulk 'abfss://synapse@oneclickpocadls.dfs.core.windows.net/AdventureWorksDW2019/serverlessusecase/source_datasets_json/SalesLT_Customer_Json/SalesLT_Customer_20200716.json',
+       bulk 'abfss://synapse@REPLACE_DATALAKE_NAME.dfs.core.windows.net/AdventureWorksDW2019/serverlessusecase/source_datasets_json/SalesLT_Customer_Json/SalesLT_Customer_20200716.json',
         format = 'csv',
         fieldterminator ='0x0b',
         fieldquote = '0x0b'
