@@ -14,7 +14,7 @@ Usecase : Capability to handle these type of data :   Querying structured data o
 -- Output : Table - Row/Column format
 select top 10 *
 from openrowset(
-    bulk 'https://oneclickpocadls.dfs.core.windows.net/synapse/AdventureWorksDW2019/dbo/DimCustomer/**',
+    bulk 'https://REPLACE_DATALAKE_NAME.dfs.core.windows.net/synapse/AdventureWorksDW2019/dbo/DimCustomer/**',
     format = 'parquet') as rows
 GO
 
@@ -25,7 +25,7 @@ GO
 -- Output : Table - Row/Column format
 select top 10 *
 from openrowset(
-    bulk 'abfss://synapse@oneclickpocadls.dfs.core.windows.net/AdventureWorksDW2019/dbo/DimCustomer/**',
+    bulk 'abfss://synapse@REPLACE_DATALAKE_NAME.dfs.core.windows.net/AdventureWorksDW2019/dbo/DimCustomer/**',
     format = 'parquet') as rows
 GO
 
