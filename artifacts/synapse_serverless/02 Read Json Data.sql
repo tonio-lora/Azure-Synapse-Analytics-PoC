@@ -12,7 +12,7 @@ Usecase : Capability to handle these type of data :   Querying structured data o
 -- Output : JSON format
 select top 10 *
 from openrowset(
-        bulk 'https://oneclickpocadls.dfs.core.windows.net/synapse/AdventureWorksDW2019/serverlessusecase/source_datasets_json/SalesLT_Customer_Json/SalesLT_Customer_20200716.json',
+        bulk 'https://REPLACE_DATALAKE_NAME.dfs.core.windows.net/synapse/AdventureWorksDW2019/serverlessusecase/source_datasets_json/SalesLT_Customer_Json/SalesLT_Customer_20200716.json',
         format = 'csv',
         fieldterminator ='0x0b',
         fieldquote = '0x0b'
@@ -34,7 +34,7 @@ select
     JSON_VALUE(doc, '$.SalesPerson') as SalesPerson,
     doc
 from openrowset(
-        bulk 'https://oneclickpocadls.dfs.core.windows.net/synapse/AdventureWorksDW2019/serverlessusecase/source_datasets_json/SalesLT_Customer_Json/SalesLT_Customer_20200716.json',
+        bulk 'https://REPLACE_DATALAKE_NAME.dfs.core.windows.net/synapse/AdventureWorksDW2019/serverlessusecase/source_datasets_json/SalesLT_Customer_Json/SalesLT_Customer_20200716.json',
         format = 'csv',
         fieldterminator ='0x0b',
         fieldquote = '0x0b'
@@ -56,7 +56,7 @@ select
     JSON_VALUE(doc, '$.SalesPerson') as SalesPerson,
     doc
 from openrowset(
-        bulk 'abfss://synapse@oneclickpocadls.dfs.core.windows.net/AdventureWorksDW2019/serverlessusecase/source_datasets_json/SalesLT_Customer_Json/SalesLT_Customer_20200716.json',
+        bulk 'abfss://synapse@REPLACE_DATALAKE_NAME.dfs.core.windows.net/AdventureWorksDW2019/serverlessusecase/source_datasets_json/SalesLT_Customer_Json/SalesLT_Customer_20200716.json',
         format = 'csv',
         fieldterminator ='0x0b',
         fieldquote = '0x0b'
