@@ -1,6 +1,7 @@
 # Import Sql scripts to workspace
 $workspaceName = 'REPLACE_SYNAPSE_ANALYTICS_WORKSPACE_NAME'
 $synapseSqlPoolName = 'REPLACE_SYNAPSE_ANALYTICS_SQL_POOL_NAME'
+$synapseDataLake = 'REPLACE_DATALAKE_NAME'
 
 # Get token for data plane
 $token = Get-AzAccessToken -ResourceUrl https://dev.azuresynapse.net
@@ -35,7 +36,8 @@ Get-ChildItem $sqlScriptFileFolder | ForEach-Object -Process {
     $body = $body -replace '<sql-script-name>', $sqlScriptName
     $script = Get-Content -Raw $_
     $body = $body -replace '<sql-script>', $script
-
+    $body = $body -replace 'REPLACE_DATALAKE_NAME', $synapseDataLake
+    
     # Send request to create SQL script in a workspace
     Invoke-RestMethod -Method PUT -Uri https://${workspaceName}.dev.azuresynapse.net/sqlscripts/${sqlScriptName}?api-version=2020-12-01 -Body $body -Headers $authHeader
 }
