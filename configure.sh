@@ -166,6 +166,8 @@ echo "Uploading SQL Scipts and Notebook samples..."
 # Update PowerShell Scripts to upload SQL Scripts - This can be replaced once az cli supports SQL Scripts
 sed -i "s/REPLACE_SYNAPSE_ANALYTICS_WORKSPACE_NAME/${synapseAnalyticsWorkspaceName}/g" ./upload_sql_scripts.ps1
 sed -i "s/REPLACE_SYNAPSE_ANALYTICS_SQL_POOL_NAME/${synapseAnalyticsSQLPoolName}/g" ./upload_sql_scripts.ps1
+sed -i "s/REPLACE_DATALAKE_NAME/${datalakeName}/g" ./upload_sql_scripts.ps1
+
 
 # Update Notebook variables
 sed -i "s/REPLACE_DATALAKE_NAME/${datalakeName}/g" ./artifacts/synapse_spark_notebooks/01-load-staging-table.ipynb
