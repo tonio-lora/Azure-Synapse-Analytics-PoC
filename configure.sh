@@ -107,7 +107,8 @@ az synapse trigger create --only-show-errors -o none --workspace-name ${synapseA
 echo "Creating the parquet auto ingestion pipeline..."
 
 # Create the logging schema and tables for the Auto Ingestion pipeline
-sqlcmd -U ${synapseAnalyticsSQLAdmin} -P ${synapseAnalyticsSQLAdminPassword} -S tcp:${synapseAnalyticsWorkspaceName}.sql.azuresynapse.net -d ${synapseAnalyticsSQLPoolName} -I -i artifacts/Auto_Ingestion_Logging_DDL.sql > /dev/null 2>&1
+# No needed anymore. Pipeline will create logging tables
+#sqlcmd -U ${synapseAnalyticsSQLAdmin} -P ${synapseAnalyticsSQLAdminPassword} -S tcp:${synapseAnalyticsWorkspaceName}.sql.azuresynapse.net -d ${synapseAnalyticsSQLPoolName} -I -i artifacts/Auto_Ingestion_Logging_DDL.sql > /dev/null 2>&1
 
 # Create the Resource Class Logins
 cp artifacts/Create_Resource_Class_Logins.sql.tmpl artifacts/Create_Resource_Class_Logins.sql 2>&1
@@ -142,8 +143,8 @@ sed -i "s/REPLACE_DATALAKE_NAME/${datalakeName}/g" artifacts/Parquet_Auto_Ingest
 az storage copy --only-show-errors -o none --destination https://${datalakeName}.blob.core.windows.net/data/ --source artifacts/Parquet_Auto_Ingestion_Metadata.csv > /dev/null 2>&1
 
 # Copy sample data for the Parquet Auto Ingestion pipeline
-az storage copy --only-show-errors -o none --recursive --destination https://${datalakeName}.blob.core.windows.net/data/sample --source https://oneclickpocadls.blob.core.windows.net/data/sample/* --source-sas 'sp=rle&st=2021-11-07T15:44:01Z&se=2022-11-08T23:44:01Z&spr=https&sv=2020-08-04&sr=c&sig=WnRS%2F9g84KZ2T%2F%2FlxcUasaSt1nuJ9awTC9HfnrJYwRs%3D' > /dev/null 2>&1
-# Create the Auto_Pause_and_Resume Pipeline in the Synapse Analytics Workspace
+az storage copy --only-show-errors -o none --recursive --destination https://${datalakeName}.blob.core.windows.net/data/sample --source https://oneclickpocadls.blob.core.windows.net/tpcds30tb/data/* --source-sas 'sp=rl&st=2022-06-15T03:04:29Z&se=2025-06-15T11:04:29Z&spr=https&sv=2021-06-08&sr=c&sig=pASzqT8fDh4%2FBUKiG65jEViutia7zBM4zIkt1Egaw50%3D' > /dev/null 2>&1
+# Create the Parquet Auto Ingestion Pipeline in the Synapse Analytics Workspace
 az synapse pipeline create --only-show-errors -o none --workspace-name ${synapseAnalyticsWorkspaceName} --name "Parquet Auto Ingestion" --file @artifacts/Parquet_Auto_Ingestion.json
 
 echo "Creating the Demo Data database using Synapse Serverless SQL..."
