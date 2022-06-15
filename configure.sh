@@ -131,6 +131,16 @@ sed -i "s/REPLACE_SYNAPSE_ANALYTICS_WORKSPACE_NAME/${synapseAnalyticsWorkspaceNa
 sed -i "s/REPLACE_SYNAPSE_ANALYTICS_SQL_POOL_NAME/${synapseAnalyticsSQLPoolName}/g" artifacts/DS_Synapse_Managed_Identity.json
 az synapse dataset create --only-show-errors -o none --workspace-name ${synapseAnalyticsWorkspaceName} --name DS_Synapse_Managed_Identity --file @artifacts/DS_Synapse_Managed_Identity.json
 
+# Copy the Lake Database Auto DDL Pipeline template and update the variables
+cp artifacts/Lake_Database_Auto_DDL.json.tmpl artifacts/Lake_Database_Auto_DDL.json 2>&1
+sed -i "s/REPLACE_SYNAPSE_ANALYTICS_WORKSPACE_NAME/${synapseAnalyticsWorkspaceName}/g" artifacts/Lake_Database_Auto_DDL.json
+sed -i "s/REPLACE_DATALAKE_NAME/${datalakeName}/g" artifacts/Lake_Database_Auto_DDL.json
+sed -i "s#REPLACE_DATALAKE_KEY#${datalakeKey}#g" artifacts/Lake_Database_Auto_DDL.json
+sed -i "s/REPLACE_SYNAPSE_ANALYTICS_SQL_POOL_NAME/${synapseAnalyticsSQLPoolName}/g" artifacts/Lake_Database_Auto_DDL.json
+
+# Create the Lake Database Auto DDL Pipeline in the Synapse Analytics Workspace
+az synapse pipeline create --only-show-errors -o none --workspace-name ${synapseAnalyticsWorkspaceName} --name "Lake Database Auto DDL" --file @artifacts/Lake_Database_Auto_DDL.json
+
 # Copy the Parquet Auto Ingestion Pipeline template and update the variables
 cp artifacts/Parquet_Auto_Ingestion.json.tmpl artifacts/Parquet_Auto_Ingestion.json 2>&1
 sed -i "s/REPLACE_SYNAPSE_ANALYTICS_WORKSPACE_NAME/${synapseAnalyticsWorkspaceName}/g" artifacts/Parquet_Auto_Ingestion.json
